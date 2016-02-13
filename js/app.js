@@ -1,10 +1,10 @@
-function laskuri(target_paiva) {
+function laskuri(target_date) {
     var days, hours, minutes, seconds;
-    var target = target_paiva;
+    var target = target_date;
     var countdown = document.getElementById("kuumotuskello");
 
     var current_date = new Date().getTime();
-    var seconds_left = (target_paiva - current_date) / 1000;
+    var seconds_left = (target_date - current_date) / 1000;
 
     days = parseInt(seconds_left / 86400);
     seconds_left = seconds_left % 86400;
@@ -14,7 +14,7 @@ function laskuri(target_paiva) {
 
     minutes = parseInt(seconds_left / 60);
     seconds = parseInt(seconds_left % 60);
-    if (target === null) {
+    if (target === undefined) {
       countdown.innerHTML = "hopi hopi";
     } else {
    		countdown.innerHTML = days + "d, " + hours + "h, " + minutes + "m, " + seconds + "s";
@@ -71,10 +71,10 @@ function laskuri(target_paiva) {
   }
   }
 
- function aloitaKello(target_paiva) {
+ function startClock(target_date) {
 
     kello = setInterval(function() {
-      laskuri(target_paiva);
+      laskuri(target_date);
     }, 1000);
 
 
