@@ -1,0 +1,199 @@
+<!doctype html>
+<html ng-app="scotchApp">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuumotuskello 2.0</title>
+  <!-- ikonit -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="icon" sizes="16x16 32x32 64x64" href="img/favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="196x196" href="img/favicon/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="160x160" href="img/favicon/favicon-160.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="img/favicon/favicon-64.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16.png">
+  <link rel="apple-touch-icon" href="img/favicon/favicon-57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/favicon-114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/favicon-72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/favicon/favicon-144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="img/favicon/avicon-60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/favicon/favicon-120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/favicon/favicon-76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/favicon/favicon-152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/favicon-180.png">
+  <meta name="msapplication-TileColor" content="#FFFFFF">
+  <meta name="msapplication-TileImage" content="img/favicon/favicon-144.png">
+  <meta name="msapplication-config" content="img/favicon/browserconfig.xml">
+
+  <link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Comfortaa:700' rel='stylesheet' type='text/css'>
+ 
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/themes/default.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/themes/default.date.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/themes/default.time.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.4.0/animate.min.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.date.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pickadate.js/3.5.6/compressed/picker.time.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-route.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular-cookies.min.js"></script>
+ <!--
+  <link rel="stylesheet" href="css/foundation.css" />
+  <link rel="stylesheet" href="css/default.css" />
+  <link rel="stylesheet" href="css/default.date.css" />
+  <link rel="stylesheet" href="css/default.time.css" />
+  <link rel="stylesheet" href="css/animate.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <script src="js/vendor/jquery.min.js"></script>
+  <script src="js/picker.js"></script>
+  <script src="js/picker.date.js"></script>
+  <script src="js/picker.time.js"></script>
+  <script src="js/vendor/what-input.min.js"></script>
+  <script src="js/foundation.js"></script>
+  <script src="js/app.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script src="js/angular-cookies.min.js"></script>
+-->
+
+  <script>
+    // luodaan module nimellä scotchApp
+    var scotchApp = angular.module('scotchApp', ['ngRoute', 'ngCookies']);
+
+    // määritetään mistä sivun sisältö löytyy
+    scotchApp.config(function($routeProvider) {
+      $routeProvider
+
+      // etusivu
+        .when('/', {
+        templateUrl: 'etusivu.html',
+        controller: 'mainController'
+      })
+
+      // video-sivu
+      .when('/video', {
+        templateUrl: 'video.html'
+      })
+
+      // faq-sivu
+      .when('/credits', {
+        templateUrl: 'credits.html',
+        controller: 'creditsController'
+      })
+
+      .when('/kello', {
+        templateUrl: 'kello.html',
+        controller: 'kelloController'
+      })
+
+    });
+
+
+    // luodaan ohjain etusivulle
+    scotchApp.controller('mainController', function($scope, $cookies, $location) {
+
+      $scope.generateKuumotus = function() {
+
+        var nimi = document.getElementById('kuumotus_nimi').value;
+        var valitsinPaiva = document.getElementById('kuumotus_paivamaara').value;
+        var valitsinAika = document.getElementById('kuumotus_aika').value;
+        var paiva_aika = valitsinPaiva + " " + valitsinAika;
+        target_paiva = new Date(paiva_aika);
+        if ($cookies.get('paiva') != null) {
+          $cookies.remove('paiva');
+        }
+        if ($cookies.get('nimi') != null) {
+          $cookies.remove('nimi');
+        }
+        $cookies.put('nimi', nimi);
+        $cookies.put('paiva', target_paiva.getTime());
+
+        $location.path();
+        $location.path('/kello');
+        window.location = '#/kello';
+        window.location.reload();
+        
+      };
+
+    });
+    // luodaan ohjain palvelut-sivulle
+    scotchApp.controller('kelloController', function($scope, $cookies) {
+      var target_paiva = $cookies.get('paiva');
+      if ($cookies.get('nimi') == null) {
+        $scope.nimi = "Meneppäs generoimaan kuumotus"
+      } else {
+        $scope.nimi = $cookies.get('nimi') + "  armon aikaa jäljellä";
+      }
+
+      aloitaKello(target_paiva);
+
+        $scope.tuhoaKuumotus = function() {
+          $cookies.remove('paiva');
+            $cookies.remove('nimi');
+            window.location.reload();
+        }
+    });
+  </script>
+
+</head>
+
+<body style="background: #056641;" ng-controller="mainController">
+  <header>
+    <div class="row">
+      <div class="small-12 columns">
+  <ul class="vertical medium-horizontal menu">
+          <li><a href="#/" class="menuFontti">Etusivu</a></li>
+          <li><a href="#/kello" class="menuFontti">Kello</a></li>
+          <li><a href="#/credits" class="menuFontti">Credits</a></li>
+          <li><a href="#/video" class="menuFontti">Video</a></li>
+        </ul>
+        </div>
+        </div>
+  </header>
+  <div id="main">
+    <div ng-view>
+
+    </div>
+
+  </div>
+
+
+  <footer>
+
+
+    <div class="row" style="margin-top:3%;margin-bottom:3%;">
+      <div class="small-12 medium-8 large-4 small-centered columns ">
+        <div class="small-12 columns">
+          <img src="img/logoriku.svg" style="height:auto;width:70px;margin:0px auto;display:block;" class="animated logo">
+        </div>
+        <div class="small-12 columns">
+          <img src="img/nimmari.svg" style="height:auto;width:96%;margin-bottom:10px;">
+        </div>
+
+      </div>
+    </div>
+
+  </footer>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-71214363-1', 'auto');
+    ga('send', 'pageview');
+
+  </script>
+</body>
+
+</html>

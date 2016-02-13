@@ -1,0 +1,206 @@
+.logo:hover {
+  -webkit-animation-name: bounce;
+  animation-name: bounce;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+.veny {
+  width: 100%;
+  min-width: 100%;
+}
+.varjo {
+  box-shadow: 0 5px 5px -3px black;
+}
+.kortti1 {
+  background-color: #052644;
+  color: #0C5698;
+  transition: background-color 1s, color 1s;
+}
+.kortti1:hover {
+  background-color: #0C5698;
+  color: #052644;
+}
+.kortti2 {
+  background-color: #693E00;
+  color: #EB8A02;
+  transition: background-color 1s, color 1s;
+}
+.kortti2:hover {
+  background-color: #EB8A02;
+  color: #693E00;
+}
+.kortti2 a.button {
+  background-color: #EB8A02;
+  color: #693E00;
+  transition: background-color 1s, color 1s;
+}
+.kortti2:hover a.button {
+  background-color: #693E00;
+  color: #EB8A02;
+
+}
+.kortti2 a.button:hover {
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+.picker--focused .picker__day--highlighted, .picker__day--highlighted:hover, .picker__day--infocus:hover, .picker__day--outfocus:hover {
+  background-color: #EB8A02;
+}
+.kortti3 {
+  background-color: #692100;
+  color: #EB4B02;
+  transition: background-color 1s, color 1s;
+}
+.kortti3:hover {
+  background-color: #EB4B02;
+  color: #692100;
+}
+
+.keskitaOtsikko {
+  text-align: center;
+  margin: auto;
+  margin-top: 5%;
+}
+.megaOtsikko {
+  font-family: 'Audiowide', cursive;
+  text-shadow: 0px 5px black;
+}
+#cyberFontti * {
+  font-family: 'Audiowide', cursive;
+}
+#creditsSivu h1, h2 {
+  padding-top: 15px;
+  font-family: 'Audiowide', cursive;
+  color: white;
+  text-shadow: 0px 4px black;
+}
+li .menuFontti{
+  font-size: 1em;
+}
+.menuFontti {
+  font-family: 'Audiowide', cursive;
+  color: #EB8A02;
+  transition: color 0.5s, text-shadow 0.2s;
+}
+.menuFontti:hover {
+  color: #EB4B02;
+  text-shadow: 1px 1px 2px black, 0 0 1em #692100;
+  , 0 0 0.2em #692100;
+}
+.syotto:focus, .syotto:active {
+box-shadow: 0 0 5px 5px #0DFFA2;
+}
+/* ylimääritykset */
+
+.picker--focused .picker__list-item--highlighted, .picker__list-item--highlighted:hover, .picker__list-item:hover {
+  background: #EB8A02 none repeat scroll 0% 0%;
+}
+
+/* KORTIT */
+
+.card {
+  box-shadow: 3px 5px 5px -3px black, -3px 5px 5px -3px black;
+  min-height: 10em;
+  margin-bottom: 2%;
+}
+
+/*KELLO SIVU*/
+
+#kuumotuskello {
+  font-family: 'Comfortaa', cursive;
+  font-size: 4em;
+  text-align: center;
+  color: white;
+}
+.kellosivu {
+  min-height: 30em;
+  color: #0DFFA2;
+  text-align: center;
+}
+
+/* kuumotuskello */
+#tuhoamisNappi:hover{
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+#piilotaRiku {
+  display: none;
+}
+#piilotaKuumaRiku {
+  display: none;
+}
+#piilotaChilliRiku {
+  display: none;
+}
+#piilotaRIPTunna{
+  display: none;
+}
+#piilotaPohtivaRiku{
+  display: none;
+}
+.korttiRiku {
+  background-repeat: repeat-x;
+  background-size: contain;
+  margin-top: 5%;
+}
+@-webkit-keyframes kuumotusTaustaAnimaatio {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 51%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+@-moz-keyframes kuumotusTaustaAnimaatio {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 51%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+@keyframes kuumotusTaustaAnimaatio {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 51%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1000% 0;
+  }
+}
+@-moz-keyframes @keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1000% 0;
+  }
+}
+@-webkit-keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 1000% 0;
+  }
+}
