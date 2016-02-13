@@ -72,7 +72,8 @@
 
   scotchApp.controller('kelloController', function($scope, $cookies) {
     var target_date = $cookies.get('day');
-    if ($cookies.get('name') === undefined) {
+    var name = $cookies.get('name');
+    if (name === undefined || name === "") {
       $scope.name = "Meneppäs generoimaan kuumotus";
     } else {
       $scope.name = $cookies.get('name') + "  armon aikaa jäljellä";
@@ -166,7 +167,7 @@ function laskuri(target_date) {
 
     minutes = parseInt(seconds_left / 60);
     seconds = parseInt(seconds_left % 60);
-    if (target === undefined) {
+    if (target === undefined || target === "NaN") {
       countdown.innerHTML = "hopi hopi";
     } else {
    		countdown.innerHTML = days + "d, " + hours + "h, " + minutes + "m, " + seconds + "s";
