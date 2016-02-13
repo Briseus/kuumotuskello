@@ -72,8 +72,8 @@
 
     // määritetään mistä sivun sisältö löytyy
     scotchApp.config(function($routeProvider) {
-      $routeProvider
 
+      $routeProvider
         .when('/', {
         templateUrl: 'views/etusivu.html',
         controller: 'mainController'
@@ -90,6 +90,21 @@
       .when('/kello', {
         templateUrl: 'views/kello.html',
         controller: 'kelloController'
+      })
+
+      .when('/kello', {
+        templateUrl: 'views/kello.html',
+        controller: 'kelloController'
+      })
+
+      .when('/kello/aika/:time/nimi/:name', {
+        templateUrl: 'views/kello.html',
+        controller: 'kelloTimeAndNameUrlController'
+      })
+
+      .when('/kello/aika/:time', {
+        templateUrl: 'views/kello.html',
+        controller: 'kelloTimeUrlController'
       })
 
     });
@@ -139,6 +154,68 @@
           window.location.reload();
         }
     });
+
+    scotchApp.controller('kelloTimeAndNameUrlController', function($scope, $cookies,$routeParams) {
+      if ($cookies.get('day') != null) {
+        $cookies.remove('day');
+      }
+      if ($cookies.get('name') != null) {
+        $cookies.remove('name');
+      }
+
+      var target_date = $routeParams.time;
+      if ($routeParams.name === null) {
+        $scope.name = ""
+      } else {
+        $scope.name = $routeParams.name + "  armon aikaa jäljellä";
+      }
+      var name = $routeParams.name;
+      $cookies.put('name', name);
+      $cookies.put('day', target_date);
+      startClock(target_date);
+      window.location = '#/kello';
+      window.location.reload();
+    });
+
+    scotchApp.controller('kelloTimeUrlController', function($scope, $cookies,$routeParams,$location) {
+      if ($cookies.get('day') != null) {
+        $cookies.remove('day');
+      }
+      if ($cookies.get('name') != null) {
+        $cookies.remove('name');
+      }
+
+      var target_date = $routeParams.time;
+      if ($routeParams.name === undefined) {
+        $scope.name = ""
+      } else {
+        $scope.name = $routeParams.name + "  armon aikaa jäljellä";
+      }
+      var name = "";
+      $cookies.put('name', name);
+      $cookies.put('day', target_date);
+      startClock(target_date);
+      window.location = '#/kello';
+      window.location.reload();
+
+
+      // if ($cookies.get('day') != null) {
+      //   $cookies.remove('day');
+      // }
+      // if ($cookies.get('name') != null) {
+      //   $cookies.remove('name');
+      // }
+      // $scope.name = "";
+      //
+      // $cookies.put('day', target_date);
+      //
+      // $location.path();
+      // $location.path('/kello');
+      // window.location = '#/kello';
+      // window.location.reload();
+    });
+
+
   </script>
 
 </head>
@@ -180,7 +257,7 @@
     </div>
 
   </footer>
-  
+
 </body>
 
 </html>
