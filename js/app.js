@@ -1,3 +1,162 @@
+
+  // luodaan module nimellä scotchApp
+  var scotchApp = angular.module('scotchApp', ['ngRoute', 'ngCookies']);
+
+  // määritetään mistä sivun sisältö löytyy
+  scotchApp.config(function($routeProvider) {
+
+    $routeProvider
+      .when('/', {
+      templateUrl: 'views/etusivu.html',
+      controller: 'mainController'
+    })
+
+    .when('/video', {
+      templateUrl: 'views/video.html'
+    })
+
+    .when('/credits', {
+      templateUrl: 'views/credits.html',
+    })
+
+    .when('/kello', {
+      templateUrl: 'views/kello.html',
+      controller: 'kelloController'
+    })
+
+    .when('/kello', {
+      templateUrl: 'views/kello.html',
+      controller: 'kelloController'
+    })
+
+    .when('/kello/aika/:time/nimi/:name', {
+      templateUrl: 'views/kello.html',
+      controller: 'kelloTimeAndNameUrlController'
+    })
+
+    .when('/kello/aika/:time', {
+      templateUrl: 'views/kello.html',
+      controller: 'kelloTimeUrlController'
+    });
+
+  });
+
+
+  // luodaan ohjain etusivulle
+  scotchApp.controller('mainController', function($scope, $cookies, $location) {
+
+    $scope.generateKuumotus = function() {
+
+      var name = document.getElementById('kuumotus_nimi').value;
+      var inserted_day = document.getElementById('kuumotus_paivamaara').value;
+      var inserted_time = document.getElementById('kuumotus_aika').value;
+      var time_and_day = inserted_day + " " + inserted_time;
+      target_date = new Date(time_and_day);
+      if ($cookies.get('day') !== null) {
+        $cookies.remove('day');
+      }
+      if ($cookies.get('name') !== null) {
+        $cookies.remove('name');
+      }
+      $cookies.put('name', name);
+      $cookies.put('day', target_date.getTime());
+
+      $location.path();
+      $location.path('/kello');
+      window.location = '#/kello';
+      window.location.reload();
+
+    };
+
+  });
+
+  scotchApp.controller('kelloController', function($scope, $cookies,$location) {
+    var target_date = $cookies.get('day');
+    var name = $cookies.get('name');
+    if (name === undefined || name === "" && target_date === "NaN") {
+      $scope.name = "Meneppäs generoimaan kuumotus";
+      $scope.urlPath = "";
+    } else if (name === "") {
+      $scope.name = $cookies.get('name') + "  armon aikaa jäljellä";
+      $scope.urlPath = "Url jos haluat jakaa tämän hetkisen kuumotuksen: https://briseus.github.io/kuumotuskello" + "/aika/" + target_date;
+      startClock(target_date);
+    } else {
+      $scope.urlPath = "Url jos haluat jakaa tämän hetkisen kuumotuksen: https://briseus.github.io/kuumotuskello" + "/aika/" + target_date + "/nimi/" + name;
+      startClock(target_date);
+    }
+
+
+
+      $scope.destroyKuumotus = function() {
+        $cookies.remove('day');
+        $cookies.remove('name');
+        window.location.reload();
+      };
+  });
+
+  scotchApp.controller('kelloTimeAndNameUrlController', function($scope, $cookies,$routeParams) {
+    if ($cookies.get('day') !== null) {
+      $cookies.remove('day');
+    }
+    if ($cookies.get('name') !== null) {
+      $cookies.remove('name');
+    }
+
+    var target_date = $routeParams.time;
+    if ($routeParams.name === null) {
+      $scope.name = "";
+    } else {
+      $scope.name = $routeParams.name + "  armon aikaa jäljellä";
+    }
+    var name = $routeParams.name;
+    $cookies.put('name', name);
+    $cookies.put('day', target_date);
+    startClock(target_date);
+    window.location = '#/kello';
+    window.location.reload();
+  });
+
+  scotchApp.controller('kelloTimeUrlController', function($scope, $cookies,$routeParams,$location) {
+    if ($cookies.get('day') !== null) {
+      $cookies.remove('day');
+    }
+    if ($cookies.get('name') !== null) {
+      $cookies.remove('name');
+    }
+
+    var target_date = $routeParams.time;
+    if ($routeParams.name === null) {
+      $scope.name = "";
+    } else {
+      $scope.name = $routeParams.name + "  armon aikaa jäljellä";
+    }
+    var name = "";
+    $cookies.put('name', name);
+    $cookies.put('day', target_date);
+    startClock(target_date);
+    window.location = '#/kello';
+    window.location.reload();
+
+
+    // if ($cookies.get('day') != null) {
+    //   $cookies.remove('day');
+    // }
+    // if ($cookies.get('name') != null) {
+    //   $cookies.remove('name');
+    // }
+    // $scope.name = "";
+    //
+    // $cookies.put('day', target_date);
+    //
+    // $location.path();
+    // $location.path('/kello');
+    // window.location = '#/kello';
+    // window.location.reload();
+  });
+
+
+
+
 function laskuri(target_date) {
     var days, hours, minutes, seconds;
     var target = target_date;
@@ -14,7 +173,7 @@ function laskuri(target_date) {
 
     minutes = parseInt(seconds_left / 60);
     seconds = parseInt(seconds_left % 60);
-    if (target === undefined) {
+    if (target === undefined || target === "NaN") {
       countdown.innerHTML = "hopi hopi";
     } else {
    		countdown.innerHTML = days + "d, " + hours + "h, " + minutes + "m, " + seconds + "s";
