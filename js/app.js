@@ -78,10 +78,11 @@
       $scope.urlPath = "";
     } else if (name === "") {
       $scope.name = $cookies.get('name') + "  armon aikaa jäljellä";
-      $scope.urlPath = "Url jos haluat jakaa tämän hetkisen kuumotuksen: https://briseus.github.io/kuumotuskello" + "/aika/" + target_date;
+      $scope.urlPath = "Url jos haluat jakaa tämän hetkisen kuumotuksen: https://briseus.github.io/kuumotuskello/#/kello" + "/aika/" + target_date;
       startClock(target_date);
     } else {
-      $scope.urlPath = "Url jos haluat jakaa tämän hetkisen kuumotuksen: https://briseus.github.io/kuumotuskello" + "/aika/" + target_date + "/nimi/" + name;
+      $scope.name = $cookies.get('name') + "  armon aikaa jäljellä";
+      $scope.urlPath = "Url jos haluat jakaa tämän hetkisen kuumotuksen: https://briseus.github.io/kuumotuskello/#/kello" + "/aika/" + target_date + "/nimi/" + name;
       startClock(target_date);
     }
 
