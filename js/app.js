@@ -70,16 +70,22 @@
 
   });
 
-  scotchApp.controller('kelloController', function($scope, $cookies) {
+  scotchApp.controller('kelloController', function($scope, $cookies,$location) {
     var target_date = $cookies.get('day');
     var name = $cookies.get('name');
-    if (name === undefined || name === "") {
+    if (name === undefined || name === "" && target_date === "NaN") {
       $scope.name = "Meneppäs generoimaan kuumotus";
-    } else {
+      $scope.urlPath = "";
+    } else if (name === "") {
       $scope.name = $cookies.get('name') + "  armon aikaa jäljellä";
+      $scope.urlPath = "Url jos haluat jakaa tämän hetkisen kuumotuksen: https://briseus.github.io/kuumotuskello" + "/aika/" + target_date;
+      startClock(target_date);
+    } else {
+      $scope.urlPath = "Url jos haluat jakaa tämän hetkisen kuumotuksen: https://briseus.github.io/kuumotuskello" + "/aika/" + target_date + "/nimi/" + name;
+      startClock(target_date);
     }
 
-    startClock(target_date);
+
 
       $scope.destroyKuumotus = function() {
         $cookies.remove('day');
